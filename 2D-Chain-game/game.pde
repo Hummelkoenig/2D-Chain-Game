@@ -1,25 +1,24 @@
 import javax.swing.*;
 
 void setup() {
-  println("game started");
   size(1500, 1000);
-  windowTitle("Linus-2D-Ketten-Spiel");
+  windowTitle("2D-Chain-Game");
 }
 
 void openSettingsWindow() {
-  JTextField maxDistField = new JTextField(String.valueOf((int)maxDist), 10);
+  JTextField maxDistAllowedField = new JTextField(String.valueOf((int)maxDistAllowed), 10);
   JTextField speedField   = new JTextField(String.valueOf(speed), 10);
 
   JPanel panel = new JPanel();
   panel.setLayout(new java.awt.GridLayout(0, 2, 5, 5));
-  panel.add(new JLabel("Max Kettenlänge:"));  panel.add(maxDistField);
-  panel.add(new JLabel("Geschwindigkeit:"));  panel.add(speedField);
+  panel.add(new JLabel("Max chain lenght:"));  panel.add(maxDistAllowedField);
+  panel.add(new JLabel("speed:"));  panel.add(speedField);
 
   int result = JOptionPane.showConfirmDialog(null, panel, "Einstellungen", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
   if (result == JOptionPane.OK_OPTION) {
     try {
-      maxDist = Integer.parseInt(maxDistField.getText());
+      maxDistAllowed = Integer.parseInt(maxDistAllowedField.getText());
       speed   = Integer.parseInt(speedField.getText());
     } catch (NumberFormatException e) {
       println("Ungültige Eingabe!");
@@ -34,9 +33,9 @@ void openColorFig1Window() {
 
   JPanel panel = new JPanel();
   panel.setLayout(new java.awt.GridLayout(0, 2, 5, 5));
-  panel.add(new JLabel("r:"));  panel.add(r);
-  panel.add(new JLabel("g:"));  panel.add(g);
-  panel.add(new JLabel("b:"));  panel.add(b);
+  panel.add(new JLabel("red:"));  panel.add(r);
+  panel.add(new JLabel("green:"));  panel.add(g);
+  panel.add(new JLabel("blue:"));  panel.add(b);
 
   int result = JOptionPane.showConfirmDialog(null, panel, "ColorFig1", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -44,7 +43,7 @@ void openColorFig1Window() {
     try {
       setColor(ColorFig1, Integer.parseInt(r.getText()), Integer.parseInt(g.getText()), Integer.parseInt(b.getText()));
     } catch (NumberFormatException e) {
-      println("Ungültige Eingabe!");
+      println("Invalid input!");
     }
   }
 }
@@ -56,9 +55,9 @@ void openColorFig2Window() {
 
   JPanel panel = new JPanel();
   panel.setLayout(new java.awt.GridLayout(0, 2, 5, 5));
-  panel.add(new JLabel("r:"));  panel.add(r);
-  panel.add(new JLabel("g:"));  panel.add(g);
-  panel.add(new JLabel("b:"));  panel.add(b);
+  panel.add(new JLabel("red:"));  panel.add(r);
+  panel.add(new JLabel("green:"));  panel.add(g);
+  panel.add(new JLabel("blue:"));  panel.add(b);
 
   int result = JOptionPane.showConfirmDialog(null, panel, "ColorFig2", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -66,7 +65,7 @@ void openColorFig2Window() {
     try {
       setColor(ColorFig2, Integer.parseInt(r.getText()), Integer.parseInt(g.getText()), Integer.parseInt(b.getText()));
     } catch (NumberFormatException e) {
-      println("Ungültige Eingabe!");
+      println("Invalid input!");
     }
   }
 }
@@ -77,11 +76,43 @@ void setColor(int[] arr, int r, int g, int b) {
   arr[2] = b;
 }
 
+void endScreen() {
+  //show: score, high score, which player caused end
+  
+  // backgroundbox
+  strokeWeight(0);
+  fill(10);
+  rect(50 + 11, 50 + 12, 1400, 900, 28); // shadow
+  strokeWeight(4);
+  fill(50);
+  rect(50, 50, 1400, 900, 28);
+  line(750, 50, 750, 950);
+
+  // text
+  fill(230);
+  textSize(60);
+  if (finished) text("finished", 130, 200);
+  else text("died", 130, 200);
+  textSize(20);
+  if (highScore > 0) text("High score is: " + highScore, 840, 250);
+
+  // restart button
+  strokeWeight(0);
+  fill(10);
+  rect(650 + 6, 700 + 7, 200, 100, 28); // shadow
+  fill(200);
+  strokeWeight(4);
+  rect(650, 700, 200, 100, 28);
+  textSize(40);
+  fill(10);
+  text("START", 700, 765);
+}
+
 void startscreen() {
   // backgroundbox
   strokeWeight(0);
   fill(10);
-  rect(50 + 11, 50 + 12, 1400, 900, 28); // schatten
+  rect(50 + 11, 50 + 12, 1400, 900, 28); // shadow
   strokeWeight(4);
   fill(50);
   rect(50, 50, 1400, 900, 28);
@@ -95,11 +126,12 @@ void startscreen() {
   textSize(20);
   text("Control player 1 via keys: W A S D", 140, 250);
   text("Control player 2 via keys: U H J K", 840, 250);
+  if (highScore > 0) text("High score is: " + highScore, 840, 250);
 
   // Start button
   strokeWeight(0);
   fill(10);
-  rect(650 + 6, 700 + 7, 200, 100, 28); // schatten
+  rect(650 + 6, 700 + 7, 200, 100, 28); // shadow
   fill(200);
   strokeWeight(4);
   rect(650, 700, 200, 100, 28);
@@ -113,14 +145,14 @@ void startscreen() {
   drawFigures(2);
   strokeWeight(0);
   fill(10);
-  rect(400 + 6,           345 + 7, 150, 70, 28); // schatten
-  rect(400 + 700 + 6,     345 + 7, 150, 70, 28); // schatten
+  rect(400 + 6,           345 + 7, 150, 70, 28); // shadow
+  rect(400 + 700 + 6,     345 + 7, 150, 70, 28); // shadow
   fill(200);
   strokeWeight(4);
   rect(400,       345, 150, 70, 28);
   rect(400 + 700, 345, 150, 70, 28);
 
-  // Game config (zahnrad)
+  // Game config (gear) (KI-generated)
   strokeWeight(8);
   for (int i = 0; i < 8; i++) {
     float winkel = i * (360 / 8) + 20;
@@ -138,16 +170,20 @@ void startscreen() {
 }
 
 void mousePressed() {
-  if (mouseX >= 650 && mouseX <= 850 && mouseY >= 700 && mouseY <= 800) {
-    game = true;
+  // buttons pressed
+  if (mouseX >= 650 && mouseX <= 850 && mouseY >= 700 && mouseY <= 800 && gameState == 0) { // start
+    gameState = 1;
   }
-  if (mouseX >= 400 && mouseX <= 400 + 150 && mouseY >= 345 && mouseY <= 345 + 70) {
+  if (mouseX >= 650 && mouseX <= 850 && mouseY >= 700 && mouseY <= 800 && gameState == 0) { // restart
+    gameState = 0;
+  }
+  if (mouseX >= 400 && mouseX <= 400 + 150 && mouseY >= 345 && mouseY <= 345 + 70 && gameState == 0) { // color Fig 1
     openColorFig1Window();
   }
-  if (mouseX >= 400 + 700 && mouseX <= 400 + 700 + 150 && mouseY >= 345 && mouseY <= 345 + 70) {
+  if (mouseX >= 400 + 700 && mouseX <= 400 + 700 + 150 && mouseY >= 345 && mouseY <= 345 + 70 && gameState == 0) { // color fig2
     openColorFig2Window();
   }
-  if (mouseX >= 725 && mouseX <= 775 && mouseY >= 595 && mouseY <= 645) {
+  if (mouseX >= 725 && mouseX <= 775 && mouseY >= 595 && mouseY <= 645 && gameState == 0) { // Settings
     openSettingsWindow();
   }
 }
@@ -166,7 +202,7 @@ void keyPressed() {
   if (key == 'k' || key == 'K') keysPressed[7] = true;
 
   // return to startscreen
-  if (key == '1') game = false;
+  if (key == '1') gameState = 0;
 }
 
 void keyReleased() {
@@ -184,73 +220,56 @@ void keyReleased() {
 }
 
 void controlFigures() {
-  // Sprung ZUERST prüfen
+  // jump + gravity
   if (keysPressed[0] && onGround1()) velocityY1 = -10;
   if (keysPressed[4] && onGround2()) velocityY2 = -10;
-
-  // Schwerkraft
   velocityY1 += gravity;
   velocityY2 += gravity;
   yPosFig1 += velocityY1;
   yPosFig2 += velocityY2;
 
-  // Bewegung links/rechts Fig1
+  // movement Fig1
   if (keysPressed[1]) xPosFig1 -= speed;
   if (keysPressed[3]) xPosFig1 += speed;
-  collisionEdgeFig1();
 
-  // Bewegung links/rechts Fig2
+  // movement Fig2
   if (keysPressed[5]) xPosFig2 -= speed;
   if (keysPressed[7]) xPosFig2 += speed;
-  collisionEdgeFig2();
-
-  collisionFigures();
-  chainConstraint();
+  
+  collisionEdge();
+  movementControl();
 }
 
 boolean onGround1() { return yPosFig1 >= height - r1 - 1; }
 boolean onGround2() { return yPosFig2 >= height - r2 - 1; }
 
-void collisionEdgeFig1() {
+void collisionEdge() {
   xPosFig1 = constrain(xPosFig1, r1, width  - r1);
   yPosFig1 = constrain(yPosFig1, r1, height - r1);
   if (yPosFig1 >= height - r1) velocityY1 = 0;
-}
-
-void collisionEdgeFig2() {
+  
   xPosFig2 = constrain(xPosFig2, r2, width  - r2);
   yPosFig2 = constrain(yPosFig2, r2, height - r2);
   if (yPosFig2 >= height - r2) velocityY2 = 0;
 }
 
-void collisionFigures() {
+void movementControl() {
   float distx    = xPosFig2 - xPosFig1;
   float disty    = yPosFig2 - yPosFig1;
   float distance = dist(xPosFig1, yPosFig1, xPosFig2, yPosFig2);
 
-  if (distance < minDist && distance > 0) {
-    float overlap = minDist - distance;
+  if (distance < minDistAllowed && distance > 0) {
+    float overshoot = minDistAllowed - distance;
     float nx = distx / distance;
     float ny = disty / distance;
-    xPosFig1 -= nx * overlap / 2;
-    yPosFig1 -= ny * overlap / 2;
-    xPosFig2 += nx * overlap / 2;
-    yPosFig2 += ny * overlap / 2;
+    xPosFig1 -= nx * overshoot / 2;
+    yPosFig1 -= ny * overshoot / 2;
+    xPosFig2 += nx * overshoot / 2;
+    yPosFig2 += ny * overshoot / 2;
   }
-}
-
-void chain() {
-  strokeWeight(3);
-  line(xPosFig1, yPosFig1, xPosFig2, yPosFig2);
-}
-
-void chainConstraint() {
-  float distx    = xPosFig2 - xPosFig1;
-  float disty    = yPosFig2 - yPosFig1;
-  float distance = dist(xPosFig1, yPosFig1, xPosFig2, yPosFig2);
-
-  if (distance > maxDist) {
-    float overlap = distance - maxDist;
+  
+  if (distance > maxDistAllowed) {
+    float overlap = distance - maxDistAllowed;
     float nx = distx / distance;
     float ny = disty / distance;
     xPosFig1 += nx * overlap / 2;
@@ -258,6 +277,11 @@ void chainConstraint() {
     xPosFig2 -= nx * overlap / 2;
     yPosFig2 -= ny * overlap / 2;
   }
+}
+
+void DrawChain() {
+  strokeWeight(3);
+  line(xPosFig1, yPosFig1, xPosFig2, yPosFig2);
 }
 
 void drawFigures(float a) {
@@ -271,11 +295,27 @@ void drawObsticals() {
   //rect();
 }
 
+void Goal() {
+  //rect();
+  if (score > highScore) highScore = score;
+  
+}
+
+void score() {
+  fill(30);
+  textSize(40);
+  text(score, 10, 35);
+}
 
 
 // variables
-boolean game = false;
+int gameState = 0;
+boolean finished = false;
 boolean[] keysPressed = new boolean[8];
+
+// score
+int score = 0;
+int highScore = 0;
 
 // Fig1
 int sizeFig1 = 30;
@@ -292,8 +332,8 @@ float yPosFig2 = 30;
 float r2 = sizeFig2 / 2;
 
 int speed = 5;
-float minDist = r1 + r2 + 1; // +1 aus kosmetischen gründen
-float maxDist = 150;
+float minDistAllowed = r1 + r2 + 1; // +1 for cosmetic reasons
+float maxDistAllowed = 150;
 
 float velocityY1 = 0;
 float velocityY2 = 0;
@@ -301,22 +341,16 @@ float gravity = 0.5;
 
 void draw() {
   background(180);
-  if (!game) startscreen();
-  else {
+  if (gameState == 0) startscreen();
+  else if (gameState == 1) {
     controlFigures();
-    chain();
+    DrawChain();
     drawFigures(1);
     drawObsticals();
+    Goal();
+    score();
   }
+  else if (gameState == 2) endScreen();
 }
 
-
 //------------------------
-
-/*
-- if S or J tp zu nächten obstikal oder boden
-- Stars / points
-- damage system                                  
-- game finish
-
-*/
