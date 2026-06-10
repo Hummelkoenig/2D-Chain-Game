@@ -14,14 +14,14 @@ void openSettingsWindow() {
   panel.add(new JLabel("Max chain lenght:"));  panel.add(maxDistAllowedField);
   panel.add(new JLabel("speed:"));  panel.add(speedField);
 
-  int result = JOptionPane.showConfirmDialog(null, panel, "Einstellungen", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+  int result = JOptionPane.showConfirmDialog(null, panel, "settings", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
   if (result == JOptionPane.OK_OPTION) {
     try {
       maxDistAllowed = Integer.parseInt(maxDistAllowedField.getText());
       speed   = Integer.parseInt(speedField.getText());
     } catch (NumberFormatException e) {
-      println("Ungültige Eingabe!");
+      println("Invalid input!");
     }
   }
 }
@@ -126,7 +126,6 @@ void startscreen() {
   textSize(20);
   text("Control player 1 via keys: W A S D", 140, 250);
   text("Control player 2 via keys: U H J K", 840, 250);
-  if (highScore > 0) text("High score is: " + highScore, 840, 250);
 
   // Start button
   strokeWeight(0);
@@ -167,6 +166,14 @@ void startscreen() {
   ellipse(750, 620, 40, 40);
   fill(50);
   ellipse(750, 620, 12, 12);
+  
+  // highscore
+  fill(150);
+  strokeWeight(4);
+  rect(680, 830, 150, 50, 28);
+  fill(0);
+  textSize(20);
+  if (highScore > 0) text("Highscore: " + highScore, 700, 860);
 }
 
 void mousePressed() {
@@ -315,7 +322,7 @@ boolean[] keysPressed = new boolean[8];
 
 // score
 int score = 0;
-int highScore = 0;
+int highScore = 4;
 
 // Fig1
 int sizeFig1 = 30;
