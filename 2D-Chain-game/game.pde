@@ -82,30 +82,31 @@ void endScreen() {
   // backgroundbox
   strokeWeight(0);
   fill(10);
-  rect(50 + 11, 50 + 12, 1400, 900, 28); // shadow
+  rect(400 + 11, 50 + 12, 700, 900, 28); // shadow
   strokeWeight(4);
   fill(50);
-  rect(50, 50, 1400, 900, 28);
-  line(750, 50, 750, 950);
+  rect(400, 50, 700, 900, 28);
 
   // text
   fill(230);
-  textSize(60);
+  textSize(90);
   if (finished) text("finished", 130, 200);
-  else text("died", 130, 200);
+  else text("you died", 580, 220);
   textSize(20);
   if (highScore > 0) text("High score is: " + highScore, 840, 250);
 
   // restart button
   strokeWeight(0);
   fill(10);
-  rect(650 + 6, 700 + 7, 200, 100, 28); // shadow
+  rect(640 + 6, 770 + 7, 220, 100, 28); // shadow
   fill(200);
   strokeWeight(4);
-  rect(650, 700, 200, 100, 28);
+  rect(640, 770, 220, 100, 28);
   textSize(40);
   fill(10);
-  text("START", 700, 765);
+  text("RESTART", 675, 835);
+  
+  line(750, 50, 750, 950);
 }
 
 void startscreen() {
@@ -150,8 +151,12 @@ void startscreen() {
   strokeWeight(4);
   rect(400,       345, 150, 70, 28);
   rect(400 + 700, 345, 150, 70, 28);
+  textSize(20);
+  fill(0);
+  text("change color", 420, 385);
+  text("change color", 1120, 385);
 
-  // Game config (gear) (KI-generated)
+  // Game config (makes the gear) (AI-generated because im not capable of doing that)
   strokeWeight(8);
   for (int i = 0; i < 8; i++) {
     float winkel = i * (360 / 8) + 20;
@@ -173,17 +178,19 @@ void startscreen() {
   rect(680, 830, 150, 50, 28);
   fill(0);
   textSize(20);
-  if (highScore > 0) text("Highscore: " + highScore, 700, 860);
+  text("Highscore: " + highScore, 700, 862);
 }
 
 void mousePressed() {
-  // buttons pressed
+  // buttons for start and end
   if (mouseX >= 650 && mouseX <= 850 && mouseY >= 700 && mouseY <= 800 && gameState == 0) { // start
     gameState = 1;
   }
-  if (mouseX >= 650 && mouseX <= 850 && mouseY >= 700 && mouseY <= 800 && gameState == 0) { // restart
+  if (mouseX >= 640 && mouseX <= 850 && mouseY >= 720 && mouseY <= 800 && gameState == 2) { // restart
     gameState = 0;
   }
+  
+  // buttons for
   if (mouseX >= 400 && mouseX <= 400 + 150 && mouseY >= 345 && mouseY <= 345 + 70 && gameState == 0) { // color Fig 1
     openColorFig1Window();
   }
@@ -194,6 +201,13 @@ void mousePressed() {
     openSettingsWindow();
   }
 }
+
+finishReached()
+// finish
+int xFinish = 400;
+int yFinish = 40;
+int fWidth = 50;
+int fHight = 40;
 
 void keyPressed() {
   // controllkeys for fig1
@@ -208,8 +222,10 @@ void keyPressed() {
   if (key == 'j' || key == 'J') keysPressed[6] = true;
   if (key == 'k' || key == 'K') keysPressed[7] = true;
 
-  // return to startscreen
+  // opperation keys (secret)
   if (key == '1') gameState = 0;
+  if (key == '2') gameState = 1;
+  if (key == '3') gameState = 2;
 }
 
 void keyReleased() {
@@ -277,12 +293,12 @@ void movementControl() {
   
   if (distance > maxDistAllowed) {
     float overlap = distance - maxDistAllowed;
-    float nx = distx / distance;
-    float ny = disty / distance;
-    xPosFig1 += nx * overlap / 2;
-    yPosFig1 += ny * overlap / 2;
-    xPosFig2 -= nx * overlap / 2;
-    yPosFig2 -= ny * overlap / 2;
+    float directCorrectionX = distx / distance;
+    float directCorrectionY = disty / distance;
+    xPosFig1 += directCorrectionX * overlap / 2;
+    yPosFig1 += directCorrectionY * overlap / 2;
+    xPosFig2 -= directCorrectionX * overlap / 2;
+    yPosFig2 -= directCorrectionY * overlap / 2;
   }
 }
 
@@ -298,11 +314,30 @@ void drawFigures(float a) {
   ellipse(xPosFig2, yPosFig2, a * sizeFig2, a * sizeFig2);
 }
 
-void drawObsticals() {
-  //rect();
+void drawLevel() {
+  
+  
+  drawFinish();
 }
 
-void Goal() {
+void drawFinish() {
+  //draw finish
+  strokeWeight(0);
+  fill(35);
+  rect(xFinish, yFinish, fWidth, fHight);
+  strokeWeight(0);
+  fill(230);
+  for(int j = 0; j < fHight; j = j + 20) {
+    for(int i = 0; i < fWidth; i = i + 20) {
+      rect(xFinish + i, yFinish + j , 10, 10);
+    }
+    for(int i = 10; i < fWidth; i = i + 20) {
+      rect(xFinish + i, yFinish + j + 10, 10, 10);
+    }
+  }
+}
+
+void finishReached() {
   //rect();
   if (score > highScore) highScore = score;
   
@@ -322,7 +357,13 @@ boolean[] keysPressed = new boolean[8];
 
 // score
 int score = 0;
-int highScore = 4;
+int highScore = 0;
+
+// finish
+int xFinish = 400;
+int yFinish = 40;
+int fWidth = 50;
+int fHight = 40;
 
 // Fig1
 int sizeFig1 = 30;
@@ -353,8 +394,7 @@ void draw() {
     controlFigures();
     DrawChain();
     drawFigures(1);
-    drawObsticals();
-    Goal();
+    drawLevel();
     score();
   }
   else if (gameState == 2) endScreen();
