@@ -22,6 +22,16 @@ void drawLevel0() {
   }
 }
 
+void borderObsticals() {
+  xPosFig1 = constrain(xPosFig1, r1, width  - r1);
+  yPosFig1 = constrain(yPosFig1, r1, height - r1);
+  if (yPosFig1 >= height - r1) velocityFig1 = 0;
+  
+  xPosFig2 = constrain(xPosFig2, r2, width  - r2);
+  yPosFig2 = constrain(yPosFig2, r2, height - r2);
+  if (yPosFig2 >= height - r2) velocityFig2 = 0;
+}
+
 void timer() {
   levelTime = millis() / 1000 - levelStart;
   fill(30);
