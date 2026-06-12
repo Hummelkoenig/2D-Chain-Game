@@ -2,7 +2,7 @@ import javax.swing.*;
 
 void setup() {
   size(1500, 1000);
-  windowTitle("2D-Chain-Game");
+  //windowTitle("2D-Chain-Game");
 }
 
 void openSettingsWindow() {
@@ -79,6 +79,9 @@ void setColor(int[] arr, int r, int g, int b) {
 void endScreen() {
   //show: score, high score, which player caused end
   
+  //update score
+  if (score > highScore) highScore = score;
+  
   // backgroundbox
   strokeWeight(0);
   fill(10);
@@ -86,15 +89,7 @@ void endScreen() {
   strokeWeight(4);
   fill(50);
   rect(400, 50, 700, 900, 28);
-
-  // text
-  fill(230);
-  textSize(90);
-  if (finished) text("finished", 130, 200);
-  else text("you died", 580, 220);
-  textSize(20);
-  if (highScore > 0) text("High score is: " + highScore, 840, 250);
-
+  
   // restart button
   strokeWeight(0);
   fill(10);
@@ -105,6 +100,15 @@ void endScreen() {
   textSize(40);
   fill(10);
   text("RESTART", 675, 835);
+
+  // text
+  fill(230);
+  textSize(90);
+  if (finished) text("finished", 130, 200);
+  else text("you died", 580, 220);
+  textSize(20);
+  if (highScore > 0) text("High score is: " + highScore, 840, 250);
+
   
   line(750, 50, 750, 950);
 }
@@ -188,9 +192,10 @@ void mousePressed() {
   }
   if (mouseX >= 640 && mouseX <= 850 && mouseY >= 720 && mouseY <= 800 && gameState == 2) { // restart
     gameState = 0;
+    finished = false;
   }
   
-  // buttons for
+  // buttons for Colorwindow
   if (mouseX >= 400 && mouseX <= 400 + 150 && mouseY >= 345 && mouseY <= 345 + 70 && gameState == 0) { // color Fig 1
     openColorFig1Window();
   }
@@ -201,13 +206,6 @@ void mousePressed() {
     openSettingsWindow();
   }
 }
-
-finishReached()
-// finish
-int xFinish = 400;
-int yFinish = 40;
-int fWidth = 50;
-int fHight = 40;
 
 void keyPressed() {
   // controllkeys for fig1
@@ -244,12 +242,12 @@ void keyReleased() {
 
 void controlFigures() {
   // jump + gravity
-  if (keysPressed[0] && onGround1()) velocityY1 = -10;
-  if (keysPressed[4] && onGround2()) velocityY2 = -10;
-  velocityY1 += gravity;
-  velocityY2 += gravity;
-  yPosFig1 += velocityY1;
-  yPosFig2 += velocityY2;
+  if (keysPressed[0] && onGround1()) velocityFig1 = -10;
+  if (keysPressed[4] && onGround2()) velocityFig2 = -10;
+  velocityFig1 += gravity;
+  velocityFig2 += gravity;
+  yPosFig1 += velocityFig1;
+  yPosFig2 += velocityFig2;
 
   // movement Fig1
   if (keysPressed[1]) xPosFig1 -= speed;
@@ -269,11 +267,21 @@ boolean onGround2() { return yPosFig2 >= height - r2 - 1; }
 void collisionEdge() {
   xPosFig1 = constrain(xPosFig1, r1, width  - r1);
   yPosFig1 = constrain(yPosFig1, r1, height - r1);
-  if (yPosFig1 >= height - r1) velocityY1 = 0;
+  if (yPosFig1 >= height - r1) velocityFig1 = 0;
   
   xPosFig2 = constrain(xPosFig2, r2, width  - r2);
   yPosFig2 = constrain(yPosFig2, r2, height - r2);
-  if (yPosFig2 >= height - r2) velocityY2 = 0;
+  if (yPosFig2 >= height - r2) velocityFig2 = 0;
+}
+
+void collisionObstical() {
+  xPosFig1 = constrain(xPosFig1, r1, width  - r1);
+  yPosFig1 = constrain(yPosFig1, r1, height - r1);
+  if (yPosFig1 >= height - r1) velocityFig1 = 0;
+  
+  xPosFig2 = constrain(xPosFig2, r2, width  - r2);
+  yPosFig2 = constrain(yPosFig2, r2, height - r2);
+  if (yPosFig2 >= height - r2) velocityFig2 = 0;
 }
 
 void movementControl() {
@@ -308,6 +316,7 @@ void DrawChain() {
 }
 
 void drawFigures(float a) {
+  strokeWeight(3);
   fill(ColorFig1[0], ColorFig1[1], ColorFig1[2]);
   ellipse(xPosFig1, yPosFig1, a * sizeFig1, a * sizeFig1);
   fill(ColorFig2[0], ColorFig2[1], ColorFig2[2]);
@@ -315,8 +324,10 @@ void drawFigures(float a) {
 }
 
 void drawLevel() {
+  //draw obsticals
+  rect(300, 950, 50, 5);
   
-  
+  // draw finish
   drawFinish();
 }
 
@@ -338,15 +349,15 @@ void drawFinish() {
 }
 
 void finishReached() {
-  //rect();
-  if (score > highScore) highScore = score;
-  
+  if(xPosFig1 >= xFinish    && yPosFig1 >= yFinish     && xPosFig1 < fWidth + xFinish    && yPosFig1 < fHight + yFinish) finished = true;
+  else if(xPosFig2 >= xFinish    && xPosFig2 >= yFinish     && xPosFig2 < fWidth + xFinish    && xPosFig2 < fHight + yFinish) finished = true;
 }
 
 void score() {
-  fill(30);
-  textSize(40);
-  text(score, 10, 35);
+    fill(30);
+    textSize(40);
+    text(millis() / 1000, 10, 35);
+    millis() / 1000
 }
 
 
@@ -356,12 +367,12 @@ boolean finished = false;
 boolean[] keysPressed = new boolean[8];
 
 // score
-int score = 0;
+long score = 0;
 int highScore = 0;
 
 // finish
-int xFinish = 400;
-int yFinish = 40;
+int xFinish = 900;
+int yFinish = 900;
 int fWidth = 50;
 int fHight = 40;
 
@@ -383,8 +394,8 @@ int speed = 5;
 float minDistAllowed = r1 + r2 + 1; // +1 for cosmetic reasons
 float maxDistAllowed = 150;
 
-float velocityY1 = 0;
-float velocityY2 = 0;
+float velocityFig1 = 0;
+float velocityFig2 = 0;
 float gravity = 0.5;
 
 void draw() {
@@ -392,9 +403,10 @@ void draw() {
   if (gameState == 0) startscreen();
   else if (gameState == 1) {
     controlFigures();
+    drawLevel();
     DrawChain();
     drawFigures(1);
-    drawLevel();
+    if (finished) gameState = 2;
     score();
   }
   else if (gameState == 2) endScreen();
