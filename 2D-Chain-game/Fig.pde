@@ -19,8 +19,8 @@ void controlFigures() {
   movementControl();
 }
 
-boolean onGround1() { return yPosFig1 >= height - r1 - 1; }
-boolean onGround2() { return yPosFig2 >= height - r2 - 1; }
+boolean onGround1() { return yPosFig1 >= height - r1 - 1 || fig1OnObstacle; }
+boolean onGround2() { return yPosFig2 >= height - r2 - 1 || fig2OnObstacle; }
 
 void border() {
   xPosFig1 = constrain(xPosFig1, r1, width  - r1);

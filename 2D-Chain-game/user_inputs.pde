@@ -6,7 +6,7 @@ void mousePressed() {
   }
   if (mouseX >= 640 && mouseX <= 850 && mouseY >= 720 && mouseY <= 800 && gameState == 2) { // restart
     gameState = 0;
-    finished = false;
+    end = false;
   }
   
   // buttons for Colorwindow

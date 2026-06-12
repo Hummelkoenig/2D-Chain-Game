@@ -8,7 +8,7 @@
 //---Global Variables---
   // variables
   int gameState = 0;
-  boolean finished = false;
+  boolean end = false;
   boolean[] keysPressed = new boolean[8];
   
   //level
@@ -25,6 +25,7 @@
   float xPosFig1 = 40;
   float yPosFig1 = 30;
   float r1 = sizeFig1 / 2;
+  boolean fig1OnObstacle = false;
   
   // Fig2
   int sizeFig2 = 30;
@@ -32,6 +33,7 @@
   float xPosFig2 = 120;
   float yPosFig2 = 30;
   float r2 = sizeFig2 / 2;
+  boolean fig2OnObstacle = false;
   
   // chain
   float minDistAllowed = r1 + r2 + 1; // +1 for cosmetic reasons

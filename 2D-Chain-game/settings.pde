@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.*; // library was recomended and explained by AI 
 
 void openSettingsWindow() {
   JTextField maxDistAllowedField = new JTextField(String.valueOf((int)maxDistAllowed), 10);

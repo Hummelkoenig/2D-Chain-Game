@@ -1,37 +1,43 @@
 void drawLevel() {
+  fig1OnObstacle = false;
+  fig2OnObstacle = false;
   if (level == 0) drawLevel0();
-  //else if (level == 1) drawLevel1();
 }
 
 void drawLevel0() {
-  //draw obsticals
   obstical(300, 950, 50, 5);
-  
-  //draw timer and keep track on time
+
   timer();
-  
-  // draw finish
+
   int xPosFinish = 900;
   int yPosFinish = 900;
-  int fWidth = 50;
-  int fHight = 40;
-  drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
-  if (finishReached(xPosFinish, yPosFinish, fWidth, fHight)) {
-    finished = true;
+  int fWidth  = 50;
+  int fHight  = 40;
+  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
+    end  = true;
     gameState = 2;
   }
 }
 
-void obstical(int x, int y, int Width, int Hight) {
-  xPosFig1 = constrain(xPosFig1, r1, width  - r1);
-  yPosFig1 = constrain(yPosFig1, r1, height - r1);
-  if (yPosFig1 >= height - r1) velocityFig1 = 0;
+void obstical(int x, int y, int w, int h) {
+  // draw obstical
+  strokeWeight(0);
+  fill(80);
+  rect(x, y, w, h);
+
+  // collision with Fig
+  collisionObstical(1, x, y, w, h);
+  collisionObstical(2, x, y, w, h);
+}
+
+
+
+void collisionObstical(int fig, float ox, float oy, float ow, float oh) {
+  //?
   
-  xPosFig2 = constrain(xPosFig2, r2, width  - r2);
-  yPosFig2 = constrain(yPosFig2, r2, height - r2);
-  if (yPosFig2 >= height - r2) velocityFig2 = 0;
-  
-  rect(x, y, Width, Hight);
+  fig1OnObstacle = true;
+  fig2OnObstacle = true;
 }
 
 void timer() {
