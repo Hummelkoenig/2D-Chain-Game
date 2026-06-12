@@ -5,7 +5,7 @@ void drawLevel() {
 }
 
 void drawLevel0() {
-  obstical(300, 950, 50, 5);
+  //obstical(300, 950, 50, 5);
 
   timer();
 
