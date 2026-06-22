@@ -5,14 +5,17 @@ void drawLevel() {
 }
 
 void drawLevel0() {
-  //obstical(300, 950, 50, 5);
-
+  // obsticals
+  obstical(300, 950, 50, 5);
+  
+  // timer
   timer();
-
+  
+  // finish
   int xPosFinish = 900;
   int yPosFinish = 900;
-  int fWidth  = 50;
-  int fHight  = 40;
+  int fWidth = 50;
+  int fHight = 40;
   drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
   if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
     end  = true;
@@ -26,18 +29,31 @@ void obstical(int x, int y, int w, int h) {
   fill(80);
   rect(x, y, w, h);
 
-  // collision with Fig
-  collisionObstical(1, x, y, w, h);
-  collisionObstical(2, x, y, w, h);
-}
+  // collision fig 1
+  if (xPosFig1 >= x && xPosFig1 <= x + w) {
+    if (yPosFig1 + r1 >= y && yPosFig1 - r1 < y && velocityFig1 >= 0) {
+      yPosFig1 = y - r1;
+      velocityFig1 = 0;
+      fig1OnObstacle = true;
+    }
+    else if (yPosFig1 - r1 <= y + h && yPosFig1 + r1 > y + h && velocityFig1 < 0) {
+      yPosFig1 = y + h + r1;
+      velocityFig1 = 1;
+    }
+  }
 
-
-
-void collisionObstical(int fig, float ox, float oy, float ow, float oh) {
-  //?
-  
-  fig1OnObstacle = true;
-  fig2OnObstacle = true;
+  // collision fig 2 
+  if (xPosFig2 >= x && xPosFig2 <= x + w) {
+    if (yPosFig2 + r2 >= y && yPosFig2 - r2 < y && velocityFig2 >= 0) {
+      yPosFig2 = y - r2;
+      velocityFig2 = 0;
+      fig2OnObstacle = true;
+    }
+    else if (yPosFig2 - r2 <= y + h && yPosFig2 + r2 > y + h && velocityFig2 < 0) {
+      yPosFig2 = y + h + r2;
+      velocityFig2 = 1;
+    }
+  }
 }
 
 void timer() {
