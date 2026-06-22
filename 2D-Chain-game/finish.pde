@@ -2,7 +2,7 @@ void drawEnd(int x, int y, int w, int h) {
   //draw finish
   strokeWeight(0);
   fill(35);
-  rect(x, y, w, h);
+  rect(x, y, w, h); 
   strokeWeight(0);
   fill(230);
   for(int j = 0; j < h; j = j + 20) {
