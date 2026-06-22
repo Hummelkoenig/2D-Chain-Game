@@ -13,7 +13,7 @@
   
   //level
   int levelStart = 0;
-  int level = 0; 
+  int level = 1; 
   
   // score
   int levelTime = 0;

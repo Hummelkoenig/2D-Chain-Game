@@ -1,10 +1,70 @@
 void drawLevel() {
   fig1OnObstacle = false;
   fig2OnObstacle = false;
-  if (level == 0) drawLevel0();
+  if (level == 1) drawLevel1();
+  else if (level == 2) drawLevel2();
+  else if (level == 3) drawLevel3();
+  else if (level == 4) drawLevel4();
 }
 
-void drawLevel0() {
+void drawLevel1() {
+  // obsticals
+  obstical(300, 950, 50, 5);
+  
+  // timer
+  timer();
+  
+  // finish
+  int xPosFinish = 900;
+  int yPosFinish = 900;
+  int fWidth = 50;
+  int fHight = 40;
+  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
+    end  = true;
+    gameState = 2;
+  }
+}
+
+void drawLevel2() {
+  // obsticals
+  obstical(300, 950, 50, 5);
+  
+  // timer
+  timer();
+  
+  // finish
+  int xPosFinish = 900;
+  int yPosFinish = 900;
+  int fWidth = 50;
+  int fHight = 40;
+  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
+    end  = true;
+    gameState = 2;
+  }
+}
+
+void drawLevel3() {
+  // obsticals
+  obstical(300, 950, 50, 5);
+  
+  // timer
+  timer();
+  
+  // finish
+  int xPosFinish = 900;
+  int yPosFinish = 900;
+  int fWidth = 50;
+  int fHight = 40;
+  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
+    end  = true;
+    gameState = 2;
+  }
+}
+
+void drawLevel4() {
   // obsticals
   obstical(300, 950, 50, 5);
   
