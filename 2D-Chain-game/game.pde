@@ -7,9 +7,10 @@
 
 //---Global Variables---
   // variables
-  int gameState = 0;
+  int gameState = 1;
   boolean end = false;
   boolean[] keysPressed = new boolean[8];
+  boolean won = false;
   
   //level
   int levelStart = 0;

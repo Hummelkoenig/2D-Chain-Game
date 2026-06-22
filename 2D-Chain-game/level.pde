@@ -8,6 +8,7 @@ void drawLevel() {
 }
 
 void drawLevel1() {
+  
   // obsticals
   obstical(300, 950, 50, 5);
   
@@ -19,9 +20,10 @@ void drawLevel1() {
   int yPosFinish = 900;
   int fWidth = 50;
   int fHight = 40;
-  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
   if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
     end  = true;
+    won = true;
     gameState = 2;
   }
 }
@@ -38,9 +40,10 @@ void drawLevel2() {
   int yPosFinish = 900;
   int fWidth = 50;
   int fHight = 40;
-  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
   if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
     end  = true;
+    won = true;
     gameState = 2;
   }
 }
@@ -57,9 +60,10 @@ void drawLevel3() {
   int yPosFinish = 900;
   int fWidth = 50;
   int fHight = 40;
-  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
   if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
     end  = true;
+    won = true;
     gameState = 2;
   }
 }
@@ -76,9 +80,10 @@ void drawLevel4() {
   int yPosFinish = 900;
   int fWidth = 50;
   int fHight = 40;
-  drawEnd(xPosFinish, yPosFinish, fWidth, fHight);
+  drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
   if (endReached(xPosFinish, yPosFinish, fWidth, fHight)) {
     end  = true;
+    won = true;
     gameState = 2;
   }
 }

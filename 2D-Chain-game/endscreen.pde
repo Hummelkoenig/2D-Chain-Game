@@ -25,12 +25,13 @@ void endScreen() {
 
   // text
   fill(230);
-  textSize(90);
-  if (end) text("You Win", 130, 200);
-  else text("You Lose", 580, 220);
+  textSize(100);
+  if (won) {
+    text("You Win", 580, 300);
+    textSize(20);
+    text("Your time is: " + levelTime, 580, 500);
+  }
+  else text("You Lose", 580, 300);
   textSize(20);
-  if (bestTime[level] > 0) text("High score for this level is: " + bestTime[level], 840, 250);
-
-  
-  line(750, 50, 750, 950);
+  text("The best time for this level is: " + bestTime[level], 580, 450);
 }

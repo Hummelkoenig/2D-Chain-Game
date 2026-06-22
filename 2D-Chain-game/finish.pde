@@ -1,4 +1,4 @@
-void drawEnd(int x, int y, int w, int h) {
+void drawFinish(int x, int y, int w, int h) {
   //draw finish
   strokeWeight(0);
   fill(35);

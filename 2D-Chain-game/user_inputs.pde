@@ -1,10 +1,13 @@
 void mousePressed() {
+  print("mouse X: " + mouseX);
+  println("  Y: " + mouseY);
+  
   // buttons for start and end
   if (mouseX >= 1050 && mouseX <= 1350 && mouseY >= 630 && mouseY <= 880 && gameState == 0) { // start
     gameState = 1;
     levelStart = millis() / 1000;
   }
-  if (mouseX >= 640 && mouseX <= 850 && mouseY >= 720 && mouseY <= 800 && gameState == 2) { // restart
+  if (mouseX >= 640 && mouseX <= 860 && mouseY >= 770 && mouseY <= 870 && gameState == 2) { // restart
     gameState = 0;
     end = false;
   }
@@ -12,19 +15,19 @@ void mousePressed() {
   // buttons for level
   if (mouseX >= 150 && mouseX <= 400 && mouseY >= 600 && mouseY <= 720 && gameState == 0) { // Level 1
     level = 1;
-    println(level);
+    println("level: " + level);
   }
   if (mouseX >= 460 && mouseX <= 710 && mouseY >= 600 && mouseY <= 720 && gameState == 0) { // Level 2
     level = 2;
-    println(level);
+    println("level: " + level);
   }
   if (mouseX >= 150 && mouseX <= 400 && mouseY >= 770 && mouseY <= 890 && gameState == 0) { // Level 3
     level = 3;
-    println(level);
+    println("level: " + level);
   }
   if (mouseX >= 460 && mouseX <= 710 && mouseY >= 770 && mouseY <= 890 && gameState == 0) { // Level 4
     level = 4;
-    println(level);
+    println("level: " + level);
   }
   
   // buttons for Colorwindow
@@ -34,7 +37,7 @@ void mousePressed() {
   if (mouseX >= 400 + 700 && mouseX <= 400 + 700 + 150 && mouseY >= 345 && mouseY <= 345 + 70 && gameState == 0) { // color fig2
     openColorFig2Window();
   }
-  if (mouseX >= 725 && mouseX <= 775 && mouseY >= 595 && mouseY <= 645 && gameState == 0) { // Settings
+  if (mouseX >= 845 && mouseX <= 910 && mouseY >= 650 && mouseY <= 720 && gameState == 0) { // Settings
     openSettingsWindow();
   }
 }
