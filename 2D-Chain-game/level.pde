@@ -9,17 +9,19 @@ void drawLevel() {
 
 void drawLevel1() {
   // obsticals
-  obstical(60, 600, 250, 20);
-  obstical(370, 550, 250, 20);
-  obstical(700, 550, 500, 20);
-  obstical(1275, 550, 300, 20);
+  fill(150);
+  textSize(60);
+  text("Tutorial", 130, 200);
+  obstical(60, 600, 1400, 20);
+  obstical(600, 530, 400, 20);
+  deathZone(-10, 990, 2000, 20);
   
   // timer
   timer();
   
   // finish
-  int xPosFinish = 1400;
-  int yPosFinish = 470;
+  int xPosFinish = 1300;
+  int yPosFinish = 540;
   int fWidth = 50;
   int fHight = 40;
   drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
@@ -32,14 +34,19 @@ void drawLevel1() {
 
 void drawLevel2() {
   // obsticals
-  obstical(300, 950, 50, 5);
+  obstical(60, 600, 250, 20);
+  obstical(370, 550, 250, 20);
+  obstical(700, 550, 500, 20);
+  obstical(1275, 550, 300, 20);
+  deathZone(900, 540, 60, 20);
+  deathZone(-10, 990, 2000, 20);
   
   // timer
   timer();
   
   // finish
-  int xPosFinish = 900;
-  int yPosFinish = 900;
+  int xPosFinish = 1400;
+  int yPosFinish = 470;
   int fWidth = 50;
   int fHight = 40;
   drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
@@ -62,13 +69,16 @@ void drawLevel3() {
   obstical(1100, 550, 100, 20);
   obstical(1020, 600, 120, 20);
   obstical(1275, 530, 300, 20);
+  deathZone(880, 490, 60, 20);
+  deathZone(1120, 380, 20, 80);
+  deathZone(-10, 990, 2000, 20);
   
   // timer
   timer();
   
   // finish
-  int xPosFinish = 900;
-  int yPosFinish = 900;
+  int xPosFinish = 1400;
+  int yPosFinish = 460;
   int fWidth = 50;
   int fHight = 40;
   drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
@@ -81,14 +91,60 @@ void drawLevel3() {
 
 void drawLevel4() {
   // obsticals
-  obstical(50, 950, 300, 20);
+  strokeWeight(0);
+  fill(100, 150, 100);
+  rect(70, 640, 80, 20, 30);
+  obstical(350, 910, 20, 50);
+  obstical(50, 950, 1100, 20);
+  obstical(1200, 885, 130, 20);
+  obstical(1325, 830, 130, 20);
+  obstical(1160, 770, 100, 20);
+  obstical(580, 720, 530, 20);
+  obstical(200, 720, 300, 20);
+  obstical(60, 650, 100, 20);
+  obstical(220, 240, 100, 20);
+  obstical(360, 200, 100, 20);
+  obstical(500, 160, 100, 20);
+  obstical(640, 120, 500, 20);
+  obstical(1300, 500, 300, 20);
+  deathZone(1300, 30, 20, 300);
+  deathZone(1100, 550, 250, 20);
+  deathZone(400, 870, 20, 70);
+  deathZone(630, 940, 50, 20);
+  deathZone(830, 940, 50, 20);
+  deathZone(780, 710, 50, 20);
+  deathZone(900, 710, 50, 20);
+  deathZone(820, 110, 50, 20);
+  deathZone(-10, 990, 2000, 20);
+
+
+  // tp
+  if(xPosFig1 >= 60    && yPosFig1 >= 600     && xPosFig1 < 100 + 60    && yPosFig1 < 50 + 600) {
+    xPosFig1 = 80;
+    yPosFig1 = 30;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 80;
+    yPosFig2 = 70;
+    velocityFig2 = 0;
+  }
+  if(xPosFig2 >= 60    && yPosFig2 >= 600     && xPosFig2 < 100 + 60    && yPosFig2 < 50 + 600) {
+    xPosFig1 = 80;
+    yPosFig1 = 30;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 80;
+    yPosFig2 = 70;
+    velocityFig2 = 0;
+  }
+  
   
   // timer
   timer();
   
   // finish
-  int xPosFinish = 900;
-  int yPosFinish = 900;
+  int xPosFinish = 1410;
+  int yPosFinish = 435;
   int fWidth = 50;
   int fHight = 40;
   drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
@@ -143,7 +199,7 @@ void resetFigures(int level) {
     velocityFig2 = 0; 
   }
   
-  else if (level == 2) {
+  if (level == 2) {
     xPosFig1 = 40;
     yPosFig1 = 550;
     velocityFig1 = 0;
@@ -153,7 +209,7 @@ void resetFigures(int level) {
     velocityFig2 = 0; 
   }
   
-  else if (level == 3) {
+  if (level == 3) {
     xPosFig1 = 100;
     yPosFig1 = 550;
     velocityFig1 = 0;
@@ -163,13 +219,13 @@ void resetFigures(int level) {
     velocityFig2 = 0;
   }
   
-  else if (level == 4) {
-    xPosFig1 = 40;
-    yPosFig1 = 30;
+  if (level == 4) {
+    xPosFig1 = 80;
+    yPosFig1 = 900;
     velocityFig1 = 0;
     
-    xPosFig2 = 120;
-    yPosFig2 = 30;
+    xPosFig2 = 130;
+    yPosFig2 = 900;
     velocityFig2 = 0; 
   }
 }
@@ -181,11 +237,26 @@ void timer() {
   text(levelTime, 10, 35);
 }
 
-/*
-obstical(30, 150, 200, 20);
-obstical(200, 300, 150, 20);
-obstical(400, 450, 150, 20);
-obstical(300, 650, 350, 20);
-obstical(750, 800, 200, 20);
-obstical(830, 950, 40, 50);
-*/
+
+void deathZone(int x, int y, int w, int h) {
+  // draw danger box (red with X-pattern)
+  strokeWeight(0);
+  fill(170, 50, 50);
+  rect(x, y, w, h, 30);
+
+  // collision fig1 - jede Berührung = Tod
+  if (xPosFig1 + r1 > x && xPosFig1 - r1 < x + w &&
+      yPosFig1 + r1 > y && yPosFig1 - r1 < y + h) {
+    won = false;
+    end = true;
+    gameState = 2;
+  }
+
+  // collision fig2 - jede Berührung = Tod
+  if (xPosFig2 + r2 > x && xPosFig2 - r2 < x + w &&
+      yPosFig2 + r2 > y && yPosFig2 - r2 < y + h) {
+    won = false;
+    end = true;
+    gameState = 2;
+  }
+}
