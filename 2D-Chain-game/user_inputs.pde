@@ -6,6 +6,7 @@ void mousePressed() {
   if (mouseX >= 1050 && mouseX <= 1350 && mouseY >= 630 && mouseY <= 880 && gameState == 0) { // start
     gameState = 1;
     levelStart = millis() / 1000;
+    resetFigures(1);
   }
   if (mouseX >= 640 && mouseX <= 860 && mouseY >= 770 && mouseY <= 870 && gameState == 2) { // restart
     gameState = 0;

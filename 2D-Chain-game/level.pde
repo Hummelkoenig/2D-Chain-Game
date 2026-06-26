@@ -8,16 +8,18 @@ void drawLevel() {
 }
 
 void drawLevel1() {
-  
   // obsticals
-  obstical(300, 950, 50, 5);
+  obstical(60, 600, 250, 20);
+  obstical(370, 550, 250, 20);
+  obstical(700, 550, 500, 20);
+  obstical(1275, 550, 300, 20);
   
   // timer
   timer();
   
   // finish
-  int xPosFinish = 900;
-  int yPosFinish = 900;
+  int xPosFinish = 1400;
+  int yPosFinish = 470;
   int fWidth = 50;
   int fHight = 40;
   drawFinish(xPosFinish, yPosFinish, fWidth, fHight);
@@ -50,7 +52,16 @@ void drawLevel2() {
 
 void drawLevel3() {
   // obsticals
-  obstical(300, 950, 50, 5);
+  obstical(60, 600, 250, 20);
+  obstical(400, 550, 200, 20);
+  obstical(670, 650, 80, 20);
+  obstical(810, 650, 150, 20);
+  obstical(550, 470, 150, 20);
+  obstical(770, 440, 100, 20);
+  obstical(930, 410, 100, 20);
+  obstical(1100, 550, 100, 20);
+  obstical(1020, 600, 120, 20);
+  obstical(1275, 530, 300, 20);
   
   // timer
   timer();
@@ -70,7 +81,7 @@ void drawLevel3() {
 
 void drawLevel4() {
   // obsticals
-  obstical(300, 950, 50, 5);
+  obstical(50, 950, 300, 20);
   
   // timer
   timer();
@@ -92,7 +103,7 @@ void obstical(int x, int y, int w, int h) {
   // draw obstical
   strokeWeight(0);
   fill(80);
-  rect(x, y, w, h);
+  rect(x, y, w, h, 20);
 
   // collision fig 1
   if (xPosFig1 >= x && xPosFig1 <= x + w) {
@@ -121,9 +132,60 @@ void obstical(int x, int y, int w, int h) {
   }
 }
 
+void resetFigures(int level) {
+  if (level == 1) {
+    xPosFig1 = 100;
+    yPosFig1 = 550;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 140;
+    yPosFig2 = 550;
+    velocityFig2 = 0; 
+  }
+  
+  else if (level == 2) {
+    xPosFig1 = 40;
+    yPosFig1 = 550;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 120;
+    yPosFig2 = 550;
+    velocityFig2 = 0; 
+  }
+  
+  else if (level == 3) {
+    xPosFig1 = 100;
+    yPosFig1 = 550;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 140;
+    yPosFig2 = 550;
+    velocityFig2 = 0;
+  }
+  
+  else if (level == 4) {
+    xPosFig1 = 40;
+    yPosFig1 = 30;
+    velocityFig1 = 0;
+    
+    xPosFig2 = 120;
+    yPosFig2 = 30;
+    velocityFig2 = 0; 
+  }
+}
+
 void timer() {
   levelTime = millis() / 1000 - levelStart;
   fill(30);
   textSize(40);
   text(levelTime, 10, 35);
 }
+
+/*
+obstical(30, 150, 200, 20);
+obstical(200, 300, 150, 20);
+obstical(400, 450, 150, 20);
+obstical(300, 650, 350, 20);
+obstical(750, 800, 200, 20);
+obstical(830, 950, 40, 50);
+*/

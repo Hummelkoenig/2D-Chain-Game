@@ -1,13 +1,13 @@
 //---Setup---
   void setup() {
     size(1500, 1000);
-    windowTitle("2D-Chain-Game"); // may not work on older version of Processing, if error, comment out
+    windowTitle("2D-Chain-Game"); // may not work on older version of Processing! if error, comment out!
   }
 
 
 //---Global Variables---
   // variables
-  int gameState = 0;
+  int gameState = 1;
   boolean end = false;
   boolean[] keysPressed = new boolean[8];
   boolean won = false;
@@ -38,7 +38,7 @@
   
   // chain
   float minDistAllowed = r1 + r2 + 1; // +1 for cosmetic reasons
-  float maxDistAllowed = 150;
+  float maxDistAllowed = 250;
   
   // movement
   float velocityFig1 = 0;
