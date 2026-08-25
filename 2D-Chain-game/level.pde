@@ -239,12 +239,12 @@ void timer() {
 
 
 void deathZone(int x, int y, int w, int h) {
-  // draw danger box (red with X-pattern)
+  // draw danger box
   strokeWeight(0);
   fill(170, 50, 50);
   rect(x, y, w, h, 30);
 
-  // collision fig1 - jede Berührung = Tod
+  // collision fig1
   if (xPosFig1 + r1 > x && xPosFig1 - r1 < x + w &&
       yPosFig1 + r1 > y && yPosFig1 - r1 < y + h) {
     won = false;
@@ -252,7 +252,7 @@ void deathZone(int x, int y, int w, int h) {
     gameState = 2;
   }
 
-  // collision fig2 - jede Berührung = Tod
+  // collision fig2
   if (xPosFig2 + r2 > x && xPosFig2 - r2 < x + w &&
       yPosFig2 + r2 > y && yPosFig2 - r2 < y + h) {
     won = false;
